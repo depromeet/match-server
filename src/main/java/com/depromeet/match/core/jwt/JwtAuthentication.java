@@ -1,5 +1,7 @@
 package com.depromeet.match.core.jwt;
 
+import java.util.StringJoiner;
+
 public class JwtAuthentication {
     private final long id;
     private final String nickName;
@@ -21,5 +23,14 @@ public class JwtAuthentication {
 
     public String getProfileImageUrl() {
         return profileImageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", JwtAuthentication.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("nickName='" + nickName + "'")
+                .add("profileImageUrl='" + profileImageUrl + "'")
+                .toString();
     }
 }

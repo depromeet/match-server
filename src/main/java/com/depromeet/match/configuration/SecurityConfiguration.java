@@ -1,5 +1,6 @@
 package com.depromeet.match.configuration;
 
+import com.depromeet.match.core.jwt.JwtAccessDeniedHandler;
 import com.depromeet.match.core.jwt.JwtAuthenticationEntryPoint;
 import com.depromeet.match.core.jwt.JwtAuthenticationFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,12 +25,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(){
        return new JwtAuthenticationFilter();
     }
@@ -37,6 +32,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
         return new JwtAuthenticationEntryPoint(om);
+    }
+
+    @Bean
+    public JwtAccessDeniedHandler jwtAccessDeniedHandler(){
+        return new JwtAccessDeniedHandler(om);
     }
 
     @Override
@@ -48,9 +48,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .headers().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint())
+            .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint())
+                .accessDeniedHandler(jwtAccessDeniedHandler())
             .and()
             .formLogin().disable()
             .authorizeRequests()

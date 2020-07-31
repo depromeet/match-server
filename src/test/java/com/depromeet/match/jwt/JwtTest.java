@@ -1,9 +1,6 @@
 package com.depromeet.match.jwt;
 
-import static org.assertj.core.api.Assertions.catchThrowable;
-
 import com.depromeet.match.core.jwt.JwtResolver;
-import com.depromeet.match.error.IllegalJwtException;
 import com.depromeet.match.user.User;
 import io.jsonwebtoken.Claims;
 import org.assertj.core.api.Assertions;
@@ -112,10 +109,10 @@ class JwtTest {
         log.info(forgeryJwt);
 
         //when
-        Throwable thrown = catchThrowable(() -> JwtResolver.parseJwtToClaims(forgeryJwt));
+        Claims claims = JwtResolver.parseJwtToClaims(forgeryJwt);
 
         //then
-        Assertions.assertThat(thrown).isInstanceOf(IllegalJwtException.class);
+        Assertions.assertThat(claims).isNull();
 
         //verify
     }

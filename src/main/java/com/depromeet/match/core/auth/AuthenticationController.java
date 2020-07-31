@@ -1,8 +1,9 @@
 package com.depromeet.match.core.auth;
 
 import com.depromeet.match.core.auth.request.AuthRequest;
+import com.depromeet.match.core.response.ApiResult;
+import com.depromeet.match.user.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,16 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthenticationController {
 
-    private final AuthenticationManager am;
+    private final UserService userService;
 
-    public AuthenticationController(AuthenticationManager am) {
-        this.am = am;
+    public AuthenticationController(UserService userRepository){
+        this.userService = userRepository;
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<?> signIn(
+    public ResponseEntity<ApiResult<String>> signIn(
         @RequestBody AuthRequest req
     ) {
-        return ResponseEntity.ok().build();
+        String jwt = userService.createJwt(req.getId(), req.getNickName(), req.getProfileImageUrl());
+        return ResponseEntity.ok(new ApiResult<>(jwt));
     }
 }

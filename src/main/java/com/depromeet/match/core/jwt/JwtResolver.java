@@ -1,15 +1,11 @@
 package com.depromeet.match.core.jwt;
 
-import com.depromeet.match.error.IllegalJwtException;
 import com.depromeet.match.user.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -36,6 +32,7 @@ public class JwtResolver {
         claims.put("id", id);
         claims.put("nickName", nickName);
         claims.put("profileImageUrl", profileImageUrl);
+        claims.put("roles", List.of(Role.USER.name()));
 
         return Jwts.builder()
             .setHeader(HEADERS)
@@ -48,6 +45,10 @@ public class JwtResolver {
 
     public static boolean isExpired(final String jwt) {
         Claims claims = parseJwtToClaims(jwt);
+        if (Objects.isNull(claims)) {
+            return false;
+        }
+
         Date expiration = claims.getExpiration();
         return expiration.before(new Date());
     }
@@ -60,12 +61,16 @@ public class JwtResolver {
                 .parseClaimsJws(jwt)
                 .getBody();
         } catch (JwtException e) {
-             throw new IllegalJwtException(e.getMessage());
+            return null;
         }
     }
 
     public static User parseJwtToUser(final String jwt){
         Claims claims = parseJwtToClaims(jwt);
+        if (Objects.isNull(claims)) {
+            return User.EMPTY;
+        }
+
         long id = claims.get("id", Long.class);
         String nickName = claims.get("nickName", String.class);
         String profileImageUrl = claims.get("profileImageUrl", String.class);

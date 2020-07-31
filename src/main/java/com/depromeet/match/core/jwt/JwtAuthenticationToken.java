@@ -1,13 +1,15 @@
 package com.depromeet.match.core.jwt;
 
 import java.util.Collection;
+import java.util.Objects;
+
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
-    private transient Object principal;
+    private final transient Object principal;
 
-    private String credentials;
+    private final String credentials;
 
     public JwtAuthenticationToken(Object principal, String credentials ) {
         super(null);
@@ -34,11 +36,25 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return null;
+        return credentials;
     }
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return principal;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        JwtAuthenticationToken that = (JwtAuthenticationToken) o;
+        return Objects.equals(principal, that.principal);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), principal);
     }
 }
