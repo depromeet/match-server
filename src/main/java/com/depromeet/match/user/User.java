@@ -1,6 +1,16 @@
 package com.depromeet.match.user;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeqGen")
+    @SequenceGenerator(name = "userSeqGen", sequenceName = "USER_ID_SEQ", allocationSize = 20)
     private long id; // 카카오 app user id를 pk 로 사용한다.
     private String nickName;
     private String profileImageUrl;

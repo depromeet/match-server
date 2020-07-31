@@ -1,14 +1,18 @@
-package com.depromeet.match.core;
+package com.depromeet.match.core.jwt;
 
+import com.depromeet.match.error.IllegalJwtException;
 import com.depromeet.match.user.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class JwtResolver {
     private static final String KEY = "depromeet-6th-match";
     private static final long EXPIRATION_MINUTES = 15;
@@ -49,10 +53,15 @@ public class JwtResolver {
     }
 
     public static Claims parseJwtToClaims(final String jwt ){
-        return Jwts.parser()
-            .setSigningKey(KEY.getBytes())
-            .parseClaimsJws(jwt)
-            .getBody();
+        try {
+
+            return Jwts.parser()
+                .setSigningKey(KEY.getBytes())
+                .parseClaimsJws(jwt)
+                .getBody();
+        } catch (JwtException e) {
+             throw new IllegalJwtException(e.getMessage());
+        }
     }
 
     public static User parseJwtToUser(final String jwt){

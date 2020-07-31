@@ -1,6 +1,9 @@
 package com.depromeet.match.jwt;
 
-import com.depromeet.match.core.JwtResolver;
+import static org.assertj.core.api.Assertions.catchThrowable;
+
+import com.depromeet.match.core.jwt.JwtResolver;
+import com.depromeet.match.error.IllegalJwtException;
 import com.depromeet.match.user.User;
 import io.jsonwebtoken.Claims;
 import org.assertj.core.api.Assertions;
@@ -95,6 +98,24 @@ class JwtTest {
 
         //then
         Assertions.assertThat(expired).isFalse();
+
+        //verify
+    }
+
+    @Test
+    @DisplayName("JWT_변조")
+    void JWT_변조() throws Exception  {
+        //given
+        String jwt = JwtResolver.createJwt(user.getId(), user.getNickName(), user.getProfileImageUrl());
+        log.info(jwt);
+        String forgeryJwt = jwt.concat("a");
+        log.info(forgeryJwt);
+
+        //when
+        Throwable thrown = catchThrowable(() -> JwtResolver.parseJwtToClaims(forgeryJwt));
+
+        //then
+        Assertions.assertThat(thrown).isInstanceOf(IllegalJwtException.class);
 
         //verify
     }
