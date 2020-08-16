@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 ###
 
-POST http://3.34.250.163:8080/api/studies
+POST http://15.165.191.68:8080/api/studies
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 
 ###
 
-GET http://3.34.250.163:8080/api/studies?latitude=37.5555764&offset=0&limit=10
+GET http://15.165.191.68:8080/api/studies?latitude=37.5955764&longitude=127.0078127&offset=0&limit=10
 
 ###
 
