@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/studies")
+@RequestMapping("/api/studies")
 public class StudyController {
     private final StudyService studyService;
 

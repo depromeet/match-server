@@ -57,8 +57,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin().disable()
             .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/sign-in").permitAll()
-                .antMatchers("/studies").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/sign-in").permitAll()
+                .antMatchers("/api/studies").permitAll()
                 .anyRequest().authenticated()
             .and()
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
