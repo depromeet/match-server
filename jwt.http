@@ -1,0 +1,50 @@
+GET http://127.0.0.1:8080/users/all
+
+> {%
+  client.test("This Request is Unauthorized", function() {
+  client.assert(response.status === 401, "Response status is not 401");
+  });
+ %}
+
+###
+
+# 비정상적인 jwt
+GET http://127.0.0.1:8080/users/all
+Authorization: Bearer easdklfjasdflk.asdlkfjsadlkf.asdjlkfjaksldf
+
+> {%
+  client.test("This Request is Unauthorized", function() {
+  client.assert(response.status === 401, "Response status is not 401");
+});
+ %}
+
+###
+
+POST http://127.0.0.1:8080/sign-in
+Content-Type: application/json
+
+{
+  "id": 1203120312,
+  "nickName": "ndgndg91",
+  "profileImageUrl": "https://something.is.good"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+    client.global.set("jwt", response.body.response);
+    client.log("jwt is : " + response.body.response);
+%}
+
+###
+# 정상적인 Jwt
+GET http://127.0.0.1:8080/users/all
+Authorization: Bearer {{jwt}}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+    client.log(response.body.response);
+ %}
