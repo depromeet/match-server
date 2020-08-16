@@ -1,0 +1,15 @@
+POST http://3.34.250.163:8080/studies
+Content-Type: application/json
+
+{
+  "name": "후론트 스터디",
+  "subject": "FR",
+  "conductWay": "OFFLINE",
+  "latitude": "",
+  "longitude": "",
+  "addr1": "서울시 어쩌구 저쩌구",
+  "addr2": "우리 아파트",
+  "zipCode": "11111",
+  "start": "2020-10-31",
+  "end": "2020-10-01"
+}
