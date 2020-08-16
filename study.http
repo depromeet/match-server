@@ -5,11 +5,19 @@ Content-Type: application/json
   "name": "후론트 스터디",
   "subject": "FR",
   "conductWay": "OFFLINE",
-  "latitude": "",
-  "longitude": "",
+  "latitude": "37.5955764",
+  "longitude": "127.0078127",
   "addr1": "서울시 어쩌구 저쩌구",
   "addr2": "우리 아파트",
   "zipCode": "11111",
   "start": "2020-10-31",
   "end": "2020-10-01"
 }
+
+###
+
+GET http://3.34.250.163:8080/studies?latitude=37.5555764&offset=0&limit=10
+
+###
+
+GET http://127.0.0.1:8080/studies?latitude=37.5555764&offset=0&limit=10

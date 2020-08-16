@@ -5,8 +5,10 @@ import com.depromeet.match.study.dto.CreateStudyRequest;
 import com.depromeet.match.study.repository.StudyRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class StudyService {
@@ -17,6 +19,7 @@ public class StudyService {
         this.studyRepository = studyRepository;
     }
 
+    @Transactional
     public Long create(CreateStudyRequest request) {
         Spot spot = new Spot();
         spot.setAddr1(request.getAddr1());
@@ -40,5 +43,9 @@ public class StudyService {
         study = studyRepository.save(study);
 
         return study.getId();
+    }
+
+    public List<Study> findByLatitude(double latitude, int offset, int limit) {
+        return studyRepository.findByLatitude(latitude, offset, limit);
     }
 }
