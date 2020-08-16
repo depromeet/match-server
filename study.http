@@ -37,4 +37,4 @@ GET http://3.34.250.163:8080/api/studies?latitude=37.5555764&offset=0&limit=10
 
 ###
 
-GET http://127.0.0.1:8080/api/studies?latitude=37.5555764&offset=0&limit=10
+GET http://127.0.0.1:8080/api/studies?latitude=37.5555764&longitude=127.0078127&offset=0&limit=10

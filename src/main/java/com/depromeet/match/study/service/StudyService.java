@@ -45,7 +45,12 @@ public class StudyService {
         return study.getId();
     }
 
-    public List<Study> findByLatitude(double latitude, int offset, int limit) {
-        return studyRepository.findByLatitude(latitude, offset, limit);
+    public List<Study> findByLatitude(
+            double latitude,
+            double longitude,
+            int offset,
+            int limit
+    ) {
+        return studyRepository.findByLatitude(latitude, longitude, offset, limit);
     }
 }

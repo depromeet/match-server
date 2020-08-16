@@ -2,14 +2,14 @@ package com.depromeet.match.core.jwt;
 
 import com.depromeet.match.user.User;
 import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.ZonedDateTime;
 import java.util.*;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class JwtResolver {
+    private static final Logger log = LoggerFactory.getLogger(JwtResolver.class);
     private static final String KEY = "depromeet-6th-match";
     private static final long EXPIRATION_MINUTES = 15;
     private static final Map<String, Object> HEADERS;

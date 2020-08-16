@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "study",
+        indexes = {@Index(columnList = "latitude"),
+                @Index(columnList = "longitude")})
 public class Study extends BaseEntity {
 
     @Id

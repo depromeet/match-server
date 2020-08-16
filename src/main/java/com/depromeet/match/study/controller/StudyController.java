@@ -31,11 +31,12 @@ public class StudyController {
     @GetMapping
     public ResponseEntity<ApiResult<List<Study>>> findByLatitude(
             @RequestParam double latitude,
+            @RequestParam double longitude,
             @RequestParam int offset,
             @RequestParam int limit
     )
     {
-        List<Study> byLatitude = studyService.findByLatitude(latitude, offset, limit);
+        List<Study> byLatitude = studyService.findByLatitude(latitude, longitude, offset, limit);
         return ResponseEntity.ok(new ApiResult<>(byLatitude));
     }
 

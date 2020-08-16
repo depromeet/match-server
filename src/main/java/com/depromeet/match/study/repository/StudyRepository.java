@@ -26,15 +26,20 @@ public class StudyRepository {
         return study;
     }
 
-    public List<Study> findByLatitude(double latitude, int offset, int limit) {
+    public List<Study> findByLatitude(double latitude, double longitude, int offset, int limit) {
         double northLatitude = latitude + 0.02;
         double southLatitude = latitude - 0.02;
 
-        return em.createQuery("SELECT s FROM Study s WHERE s.spot.latitude BETWEEN :southLatitude AND :northLatitude", Study.class)
-        .setParameter("northLatitude", northLatitude)
-        .setParameter("southLatitude", southLatitude)
-        .setFirstResult(offset)
-        .setMaxResults(limit)
-        .getResultList();
+        double westLongitude = longitude - 0.02;
+        double eastLongitude = longitude + 0.02;
+
+        return em.createQuery("SELECT s FROM Study s WHERE s.spot.latitude BETWEEN :southLatitude AND :northLatitude AND s.spot.longitude BETWEEN :westLongitude AND :eastLongitude", Study.class)
+                .setParameter("northLatitude", northLatitude)
+                .setParameter("southLatitude", southLatitude)
+                .setParameter("westLongitude", westLongitude)
+                .setParameter("eastLongitude", eastLongitude)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
     }
 }
