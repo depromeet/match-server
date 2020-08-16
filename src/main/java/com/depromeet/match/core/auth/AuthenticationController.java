@@ -17,7 +17,7 @@ public class AuthenticationController {
         this.userService = userRepository;
     }
 
-    @PostMapping("/sign-in")
+    @PostMapping("/api/sign-in")
     public ResponseEntity<ApiResult<String>> signIn(
         @RequestBody AuthRequest req
     ) {

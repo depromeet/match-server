@@ -1,15 +1,18 @@
-logging:
-  level:
-    root: debug
+#logging:
+#  level:
+#    root: debug
+
 
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
+    url: jdbc:mysql://ls-522361d8e8f63c60bd4e97e287c0fb53d44f94c3.cttbdtn1wls2.ap-northeast-2.rds.amazonaws.com/matchdb?useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: matchuser
+    password: matchuser
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 server:
   error:

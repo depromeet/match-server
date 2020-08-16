@@ -1,4 +1,4 @@
-GET http://127.0.0.1:8080/users/all
+GET http://127.0.0.1:8080/api/users/all
 
 > {%
   client.test("This Request is Unauthorized", function() {
@@ -9,7 +9,7 @@ GET http://127.0.0.1:8080/users/all
 ###
 
 # 비정상적인 jwt
-GET http://127.0.0.1:8080/users/all
+GET http://127.0.0.1:8080/api/users/all
 Authorization: Bearer easdklfjasdflk.asdlkfjsadlkf.asdjlkfjaksldf
 
 > {%
@@ -20,7 +20,7 @@ Authorization: Bearer easdklfjasdflk.asdlkfjsadlkf.asdjlkfjaksldf
 
 ###
 
-POST http://127.0.0.1:8080/sign-in
+POST http://127.0.0.1:8080/api/sign-in
 Content-Type: application/json
 
 {
@@ -39,7 +39,7 @@ Content-Type: application/json
 
 ###
 # 정상적인 Jwt
-GET http://127.0.0.1:8080/users/all
+GET http://127.0.0.1:8080/api/users/all
 Authorization: Bearer {{jwt}}
 
 > {%
