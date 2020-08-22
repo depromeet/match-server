@@ -4,6 +4,7 @@ import com.depromeet.match.core.BaseEntity;
 import com.depromeet.match.jobgroup.JobGroup;
 
 import javax.persistence.*;
+import java.util.StringJoiner;
 
 @Entity
 public class User extends BaseEntity {
@@ -12,6 +13,7 @@ public class User extends BaseEntity {
     private long id; // 카카오 app user id를 pk 로 사용 한다.
     private String nickName;
     private String profileImageUrl;
+    private String thumbnailImageUrl;
 
     private String userName;
     private String email;
@@ -32,6 +34,10 @@ public class User extends BaseEntity {
 
     public String getProfileImageUrl() {
         return profileImageUrl;
+    }
+
+    public String getThumbnailImageUrl() {
+        return thumbnailImageUrl;
     }
 
     public String getUserName() {
@@ -93,11 +99,27 @@ public class User extends BaseEntity {
         return (int) (id ^ (id >>> 32));
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("nickName='" + nickName + "'")
+                .add("profileImageUrl='" + profileImageUrl + "'")
+                .add("thumbnailImageUrl" + thumbnailImageUrl + "'")
+                .add("userName='" + userName + "'")
+                .add("email='" + email + "'")
+                .add("phone='" + phone + "'")
+                .add("jobGroup=" + jobGroup)
+                .add("birthday='" + birthday + "'")
+                .add("yearExperience=" + yearExperience)
+                .toString();
+    }
 
     public static final class UserBuilder {
         private long id; // 카카오 app user id를 pk 로 사용 한다.
         private String nickName;
         private String profileImageUrl;
+        private String thumbnailImageUrl;
         private String userName;
         private String email;
         private String phone;
@@ -124,6 +146,11 @@ public class User extends BaseEntity {
 
         public UserBuilder profileImageUrl(String profileImageUrl) {
             this.profileImageUrl = profileImageUrl;
+            return this;
+        }
+
+        public UserBuilder thumbnailImageUrl(String thumbnailImageUrl) {
+            this.thumbnailImageUrl = thumbnailImageUrl;
             return this;
         }
 
@@ -160,6 +187,7 @@ public class User extends BaseEntity {
         public User build() {
             User user = new User();
             user.profileImageUrl = this.profileImageUrl;
+            user.thumbnailImageUrl = this.thumbnailImageUrl;
             user.email = this.email;
             user.nickName = this.nickName;
             user.yearExperience = this.yearExperience;
