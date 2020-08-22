@@ -18,3 +18,12 @@ server:
   error:
     whitelabel:
       enabled: false
+
+kakao:
+  client:
+    id: 011e1d88e3bce632dcf9770ae296d1c2
+    redirect-url: http://15.165.191.68:8080/kakao/redirect
+  provider:
+    login-url: https://kauth.kakao.com/oauth/authorize?client_id=011e1d88e3bce632dcf9770ae296d1c2&redirect_uri=http://15.165.191.68:8080/kakao/redirect&response_type=code
+    token-url: https://kauth.kakao.com/oauth/token
+    user-url: https://kapi.kakao.com/v2/user/me

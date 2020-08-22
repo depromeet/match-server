@@ -4,3 +4,12 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password: password
+
+kakao:
+  client:
+    id: test
+    redirect-url: test
+  provider:
+    login-url: test
+    token-url: test
+    user-url: test
