@@ -1,0 +1,29 @@
+#logging:
+#  level:
+#    root: debug
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://ls-522361d8e8f63c60bd4e97e287c0fb53d44f94c3.cttbdtn1wls2.ap-northeast-2.rds.amazonaws.com/matchdb?useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: matchuser
+    password: matchuser
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+kakao:
+  client:
+    id: 011e1d88e3bce632dcf9770ae296d1c2
+    redirect-url: http://15.165.191.68:8080/kakao/redirect
+  provider:
+    login-url: https://kauth.kakao.com/oauth/authorize?client_id=011e1d88e3bce632dcf9770ae296d1c2&redirect_uri=http://15.165.191.68:8080/kakao/redirect&response_type=code
+    token-url: https://kauth.kakao.com/oauth/token
+    user-url: https://kapi.kakao.com/v2/user/me
