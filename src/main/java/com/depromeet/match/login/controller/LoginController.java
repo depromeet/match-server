@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 public class LoginController {
@@ -35,12 +36,12 @@ public class LoginController {
      * jwt
      */
     @GetMapping("/kakao/redirect")
-    public ResponseEntity<ApiResult<String>> jwt(@RequestParam("code") String code) {
+    public RedirectView jwt(@RequestParam("code") String code) {
         log.info("code : {}", code);
         String jwt = kakaoOAuthService.jwt(code);
         log.info("controller jwt : {}", jwt);
 
-        return ResponseEntity.ok(new ApiResult<>(jwt));
+        return new RedirectView("https://depromeet.github.io/match-client?token=" + jwt);
     }
 
 }
